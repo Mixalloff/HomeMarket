@@ -1,54 +1,82 @@
-body {
-    font-family: "PT Sans script=all rev=1";
-    font-size: 12pt;
-}
-
-.center-content {
-    padding: 10px 10%;
-}
-
-.header {
-    align-items: center;
-}
-.header__logo {
-    max-height: 80px;
-}
-.header__line {
-    border: solid 1px #f65b21;
-    height: 1px;
-}
-
 .main-container__header,
 .main-container__greet {
     text-align: center;
 }
+.main-container__header {
+    font-size: 2em;
+    margin: 0;
+    letter-spacing: 2px;
+}
+.main-container__greet {
+    color: #8b8b8b;
+}
 .main-container__content {
-    margin: 20px;
+    margin: 20px 0;
 }
 
+.payment-method__top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .payment-method__top,
 .payment-method__bottom {
     padding: 20px;
     text-align: center;
     background-color: rgba(110, 140, 190, 0.2);
 }
+.payment-method__top__text {
+    font-weight: bold;
+    margin: 0 10px;
+}
+.payment-method__top__img {
+    width: 50px;
+}
 .payment-method__body {
     padding: 20px;
 }
 .payment-method__body__options {
     margin-top: 20px;
+    min-height: 50px;
 }
 
 .payment-methods-container__method {
     border-style: dotted;
     border-width: 2px;
     border-color: #8d8d8d;
+    cursor: pointer;
 }
-.payment-methods-container__method__nocover {
+.payment-methods-container__method__name {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.payment-methods-container__method__desc {
+    color: #a2a2a2;
+}
+.payment-methods-container__method--checked,
+.payment-methods-container__method:not(.payment-methods-container__method--disabled):hover {
+    background-color: rgba(215, 170, 15, .6);
+}
+.payment-methods-container__method--checked {
+    border-color: rgba(255, 255, 255, 0);
+}
+.payment-methods-container__method--inactive {
+    /*border-color: #ccc;*/
+}
+.payment-methods-container__method--disabled {
+    border-color: #ccc;
+    color: #ccc;
+}
+.payment-methods-container__method--nocover {
     text-align: center;
 }
 
-.footer__shop-label,
-.footer__support-link {
-    margin: 10px;
+.payment-method__bottom__block__img {
+    width: 30px;
+    height: 30px;
 }
+.payment-method__bottom__block__text {
+    text-align: left;
+    padding: 0 10px;
+}
+
