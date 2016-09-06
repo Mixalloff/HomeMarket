@@ -1,7 +1,54 @@
+body {
+    font-family: "PT Sans script=all rev=1";
+    font-size: 12pt;
+}
+
+.center-content {
+    padding: 10px 10%;
+}
+
 .header {
     align-items: center;
 }
+.header__logo {
+    max-height: 80px;
+}
 .header__line {
-    border: solid 2px #000;
-    height: 2px;
+    border: solid 1px #f65b21;
+    height: 1px;
+}
+
+.main-container__header,
+.main-container__greet {
+    text-align: center;
+}
+.main-container__content {
+    margin: 20px;
+}
+
+.payment-method__top,
+.payment-method__bottom {
+    padding: 20px;
+    text-align: center;
+    background-color: rgba(110, 140, 190, 0.2);
+}
+.payment-method__body {
+    padding: 20px;
+}
+.payment-method__body__options {
+    margin-top: 20px;
+}
+
+.payment-methods-container__method {
+    border-style: dotted;
+    border-width: 2px;
+    border-color: #8d8d8d;
+}
+.payment-methods-container__method__nocover {
+    text-align: center;
+}
+
+.footer__shop-label,
+.footer__support-link {
+    margin: 10px;
 }
