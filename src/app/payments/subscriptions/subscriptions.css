@@ -1,0 +1,7 @@
+.header {
+    align-items: center;
+}
+.header__line {
+    border: solid 2px #000;
+    height: 2px;
+}
