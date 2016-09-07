@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular
-        .module('app.payments')
+        .module('app.subscriptions')
         .controller('SubscriptionsController', subscriptionsController);
 
     function subscriptionsController() {

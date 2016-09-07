@@ -4,7 +4,7 @@
         .module('app',
         [
             'app.core',
-            'app.payments'
+            'app.subscriptions'
         ])
         .run(function($http, $cookies, $rootScope) {
                 $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
