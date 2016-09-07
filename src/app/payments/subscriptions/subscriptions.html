@@ -17,7 +17,7 @@
                 <md-grid-tile md-colspan="2"
                             md-rowspan="1"
                             ng-click="subscriptions.setCurrentPaymentMethod(method)"
-                            ng-repeat="method in subscriptions.paymentsMethods"
+                            ng-repeat="method in subscriptions.paymentMethods"
                             ng-class="{ 
                                         'payment-methods-container__method': true,
                                         'grid-choose-block': true,
@@ -40,8 +40,7 @@
             </div>
         </section>
         <md-divider></md-divider>
-        <!--<section class="payment-date" ng-show="subscriptions.currentPaymentMethod">-->
-        <section class="payment-date">
+        <section class="payment-date" ng-show="subscriptions.currentPaymentMethod">
             <h3 flex class="payment-date__header">На какой срок</h3>
             <md-grid-list class="payment-date-container"
                             md-cols-xs="2" md-cols-sm="4" md-cols-gt-md="8"
@@ -74,28 +73,35 @@
                 автопродление в любой момент в настройках или отменить его.
             </div>
             <div class="payment-date__options options-block">
-                <md-checkbox class="payment-date__options__auto-prolong option-checkbox" name="autoProlong" ng-model="subscriptions.isAutoProlong" aria-label="autoProlong">
+                <md-checkbox ng-show="subscriptions.isAutoProlongAvailable()" class="payment-date__options__auto-prolong option-checkbox" name="autoProlong" ng-model="subscriptions.isAutoProlong" aria-label="autoProlong">
                     Продлевать подписку автоматически
                 </md-checkbox>
-                <div class="payment-date__options__agreement option-checkbox-info text-secondary">
+                <div ng-show="subscriptions.isAutoProlongAvailable()" class="payment-date__options__agreement option-checkbox-info text-secondary">
                     Оплачивая подписку, я принимаю условия оплаты, указанные в оферте и условия автоматического<br>
                     продления подписки на месяц вперед
                 </div>
             </div>
         </section>
         <md-divider></md-divider>
-        <!--<section class="payment-date" ng-show="subscriptions.currentPaymentMethod && subscriptions.currentTariff">-->
-        <section class="total-block">
+        <section class="payment-date" ng-show="subscriptions.currentPaymentMethod && subscriptions.currentTariff">
             <h3 flex class="total-block__header">Итого к оплате (за 1 год)</h3>
             <div class="total-block__amount">
                 <div class="total-block__amount__year year-amount-container">
-                    <span class="year-amount-container__price">{{ subscriptions.currentTariff.amount }}</span>
+                    <span class="year-amount-container__equation" ng-if="subscriptions.isAddDiscount">
+                        {{ subscriptions.currentTariff.amount }} + 150
+                    </span>
+                    <span class="year-amount-container__equal-sign" ng-if="subscriptions.isAddDiscount">=</span>
+                    <span class="year-amount-container__price">{{ subscriptions.calculateCurrentAmount() }}</span>
                     <span class="year-amount-container__currency"> руб.</span>
                 </div>
-                <span class="total-block__amount__month text-secondary">Далее {{ subscriptions.currentTariff.month_pay }} рублей в месяц</span>
+                <span class="total-block__amount__month text-secondary" ng-if="subscriptions.isAutoProlong">Далее 120 рублей в месяц</span>
             </div>
             <div class="total-block__options options-block">
-                <md-checkbox class="total-block__options__add-discount option-checkbox" name="addDiscount" ng-model="subscriptions.isAddDiscount" aria-label="addDiscount">
+                <md-checkbox class="total-block__options__add-discount option-checkbox"
+                             name="addDiscount"
+                             ng-model="subscriptions.isAddDiscount"
+                             aria-label="addDiscount"
+                             ng-change="subsciptions.addDiscountChanged()">
                     Добавить подписку на скидку 5% на весь ассортимент товаров
                 </md-checkbox>
                 <div class="total-block__options__info option-checkbox-info text-secondary">
@@ -103,20 +109,25 @@
                 </div>
             </div>
         </section>
-        <div class="main-container__content__bottom" layout>
-            <div class="main-container__content__bottom__block" flex layout>
-                <img class="main-container__content__bottom__block__img" src="assets/images/sprite.nocomission-silver.png" alt="">
-                <span class="main-container__content__bottom__block__text">
-                    Нет комиссии при оплате банковскими картами Яндекс.Деньгами и Qiwi
-                </span>
+        <div class="main-container__content__bottom" layout="column">
+            <button ng-disabled="!subscriptions.currentTariff"
+                    class="main-container__content__bottom__btn pay-button">Оплатить</button>
+            <div class="main-container__content__bottom__info-block" layout>
+                <div class="main-container__content__bottom__block" flex layout>
+                    <img class="main-container__content__bottom__block__img" src="assets/images/sprite.nocomission-silver.png" alt="">
+                    <span class="main-container__content__bottom__block__text">
+                        Нет комиссии при оплате банковскими картами Яндекс.Деньгами и Qiwi
+                    </span>
+                </div>
+                <div class="main-container__content__bottom__block" flex layout>
+                    <img class="main-container__content__bottom__block__img" src="assets/images/sprite.lock-silver.png" alt="">
+                    <span class="main-container__content__bottom__block__text">
+                        Все платежи надежно защищены и соответствуют международным стандартам
+                    </span>
+                </div>
+                <div class="main-container__content__bottom__block" flex></div>
             </div>
-            <div class="main-container__content__bottom__block" flex layout>
-                <img class="main-container__content__bottom__block__img" src="assets/images/sprite.lock-silver.png" alt="">
-                <span class="main-container__content__bottom__block__text">
-                    Все платежи надежно защищены и соответствуют международным стандартам
-                </span>
-            </div>
-            <div class="main-container__content__bottom__block" flex></div>
+            
         </div>
     </md-content>
 </md-content>
