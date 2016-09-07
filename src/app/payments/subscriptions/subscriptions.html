@@ -16,18 +16,18 @@
                             md-gutter="20px">
                 <md-grid-tile md-colspan="2"
                             md-rowspan="1"
-                            ng-click="subscriptions.setCurrentPaymentMethod(method)"
-                            ng-repeat="method in subscriptions.paymentMethods"
+                            ng-click="subscriptions.PayMethod.setCurrentPaymentMethod(method)"
+                            ng-repeat="method in subscriptions.PayMethod.paymentMethods"
                             ng-class="{ 
                                         'payment-methods-container__method': true,
                                         'grid-choose-block': true,
-                                        'grid-choose-block--inactive': !subscriptions.isCurrentMethod(method) && subscriptions.currentPaymentMethod,
-                                        'grid-choose-block--checked': subscriptions.isCurrentMethod(method) && subscriptions.currentPaymentMethod,
-                                        'grid-choose-block--disabled': subscriptions.isMethodDisabled(method)
+                                        'grid-choose-block--inactive': !subscriptions.PayMethod.isCurrentMethod(method) && subscriptions.PayMethod.currentPaymentMethod,
+                                        'grid-choose-block--checked': subscriptions.PayMethod.isCurrentMethod(method) && subscriptions.PayMethod.currentPaymentMethod,
+                                        'grid-choose-block--disabled': subscriptions.PayMethod.isMethodDisabled(method)
                                         }">
                     <img  class="payment-methods-container__method__cover"
                           ng-if="method.active_cover"
-                          ng-src="{{ subscriptions.setCover(method) }}"
+                          ng-src="{{ subscriptions.PayMethod.setCover(method) }}"
                           alt="{{ method.name }}">
                     <div ng-if="!method.active_cover" class="payment-methods-container__method--nocover">
                         <span class="payment-methods-container__method__name">{{ method.name }}</span><br/>
@@ -36,11 +36,11 @@
                 </md-grid-tile>
             </md-grid-list>
             <div class="payment-method__options options-block">
-                <md-checkbox class="payment-method__options__gift-subscription option-checkbox" ng-show="subscriptions.giftSubscriptionShow()" name="gift" ng-model="subscriptions.isGiftSubscription" aria-label="gift">Покупаю подписку в подарок</md-checkbox>
+                <md-checkbox class="payment-method__options__gift-subscription option-checkbox" ng-show="subscriptions.PayMethod.giftSubscriptionShow()" name="gift" ng-model="subscriptions.PayMethod.isGiftSubscription" aria-label="gift">Покупаю подписку в подарок</md-checkbox>
             </div>
         </section>
         <md-divider></md-divider>
-        <section class="payment-date" ng-hide="!subscriptions.currentPaymentMethod">
+        <section class="payment-date" ng-hide="!subscriptions.PayMethod.currentPaymentMethod">
             <h3 flex class="payment-date__header section-header">На какой срок</h3>
             <md-grid-list class="payment-date-container"
                             md-cols-xs="2" md-cols-sm="4" md-cols-gt-md="8"
@@ -48,13 +48,13 @@
                             md-gutter="20px">
                 <md-grid-tile md-colspan="2"
                             md-rowspan="1"
-                            ng-click="subscriptions.setCurrentTariff(tariff)"
-                            ng-repeat="tariff in subscriptions.tariffs"
+                            ng-click="subscriptions.Tariff.setCurrentTariff(tariff)"
+                            ng-repeat="tariff in subscriptions.Tariff.tariffs"
                             ng-class="{ 
                                         'payment-date-container__tariff': true,
                                         'grid-choose-block': true,
-                                        'grid-choose-block--inactive': !subscriptions.isCurrentTariff(tariff) && subscriptions.currentTariff,
-                                        'grid-choose-block--checked': subscriptions.isCurrentTariff(tariff) && subscriptions.currentTariff
+                                        'grid-choose-block--inactive': !subscriptions.Tariff.isCurrentTariff(tariff) && subscriptions.Tariff.currentTariff,
+                                        'grid-choose-block--checked': subscriptions.Tariff.isCurrentTariff(tariff) && subscriptions.Tariff.currentTariff
                                       }">
                     <div class="payment-date-container__tariff__content">
                         <span class="payment-date-container__tariff__content__duration">{{ tariff.duration }}</span>
@@ -73,33 +73,33 @@
                 автопродление в любой момент в настройках или отменить его.
             </div>
             <div class="payment-date__options options-block">
-                <md-checkbox ng-show="subscriptions.isAutoProlongAvailable()" class="payment-date__options__auto-prolong option-checkbox" name="autoProlong" ng-model="subscriptions.isAutoProlong" aria-label="autoProlong">
+                <md-checkbox ng-show="subscriptions.Tariff.isAutoProlongAvailable()" class="payment-date__options__auto-prolong option-checkbox" name="autoProlong" ng-model="subscriptions.Tariff.isAutoProlong" aria-label="autoProlong">
                     Продлевать подписку автоматически
                 </md-checkbox>
-                <div ng-show="subscriptions.isAutoProlongAvailable()" class="payment-date__options__agreement option-checkbox-info text-secondary">
+                <div ng-show="subscriptions.Tariff.isAutoProlongAvailable()" class="payment-date__options__agreement option-checkbox-info text-secondary">
                     Оплачивая подписку, я принимаю условия оплаты, указанные в оферте и условия автоматического<br>
                     продления подписки на месяц вперед
                 </div>
             </div>
         </section>
         <md-divider></md-divider>
-        <section class="payment-date" ng-show="subscriptions.currentPaymentMethod && subscriptions.currentTariff">
+        <section class="payment-date" ng-show="subscriptions.PayMethod.currentPaymentMethod && subscriptions.Tariff.currentTariff">
             <h3 flex class="total-block__header section-header">Итого к оплате (за 1 год)</h3>
             <div class="total-block__amount">
                 <div class="total-block__amount__year year-amount-container">
-                    <span class="year-amount-container__equation" ng-if="subscriptions.isAddDiscount">
-                        {{ subscriptions.currentTariff.amount }} + 150
+                    <span class="year-amount-container__equation" ng-if="subscriptions.Total.isAddDiscount">
+                        {{ subscriptions.Tariff.currentTariff.amount }} + 150
                     </span>
-                    <span class="year-amount-container__equal-sign" ng-if="subscriptions.isAddDiscount">=</span>
-                    <span class="year-amount-container__price">{{ subscriptions.calculateCurrentAmount() }}</span>
+                    <span class="year-amount-container__equal-sign" ng-if="subscriptions.Total.isAddDiscount">=</span>
+                    <span class="year-amount-container__price">{{ subscriptions.Total.calculateCurrentAmount() }}</span>
                     <span class="year-amount-container__currency"> руб.</span>
                 </div>
-                <span class="total-block__amount__month text-secondary" ng-if="subscriptions.isAutoProlong">Далее 120 рублей в месяц</span>
+                <span class="total-block__amount__month text-secondary" ng-if="subscriptions.Tariff.isAutoProlong">Далее 120 рублей в месяц</span>
             </div>
             <div class="total-block__options options-block">
                 <md-checkbox class="total-block__options__add-discount option-checkbox"
                              name="addDiscount"
-                             ng-model="subscriptions.isAddDiscount"
+                             ng-model="subscriptions.Total.isAddDiscount"
                              aria-label="addDiscount"
                              ng-change="subsciptions.addDiscountChanged()">
                     Добавить подписку на скидку 5% на весь ассортимент товаров
@@ -110,8 +110,8 @@
             </div>
         </section>
         <section class="main-container__content__bottom" layout="column">
-            <button ng-disabled="!subscriptions.currentTariff"
-                    ng-show="subscriptions.currentPaymentMethod"
+            <button ng-disabled="!subscriptions.Tariff.currentTariff"
+                    ng-show="subscriptions.PayMethod.currentPaymentMethod"
                     class="main-container__content__bottom__btn pay-button">Оплатить</button>
             <div class="main-container__content__bottom__info-block" layout>
                 <div class="main-container__content__bottom__block" 

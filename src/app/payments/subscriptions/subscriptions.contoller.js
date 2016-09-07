@@ -7,83 +7,85 @@
     function subscriptionsController() {
         var vm = this;
         // Секция выбора метода
-        vm.paymentMethods = config.paymentMethods;
-        vm.currentPaymentMethod = null;
-        vm.isCurrentMethod = isCurrentMethod;
-        vm.setCurrentPaymentMethod = setCurrentPaymentMethod;
-        vm.setCover = setCover;
-        vm.isMethodDisabled = isMethodDisabled;
-
-        vm.giftSubscriptionShow = giftSubscriptionShow;
+        vm.PayMethod = {};
+        vm.PayMethod.paymentMethods = config.paymentMethods;
+        vm.PayMethod.currentPaymentMethod = null;
+        vm.PayMethod.isCurrentMethod = isCurrentMethod;
+        vm.PayMethod.setCurrentPaymentMethod = setCurrentPaymentMethod;
+        vm.PayMethod.setCover = setCover;
+        vm.PayMethod.isMethodDisabled = isMethodDisabled;
+        vm.PayMethod.giftSubscriptionShow = giftSubscriptionShow;
 
         // Секция выбора срока оплаты
-        vm.tariffs = config.tariffs;
-        vm.isCurrentTariff = isCurrentTariff;
-        vm.currentTariff = null;
-        vm.setCurrentTariff = setCurrentTariff;
-        vm.isAutoProlongAvailable = isAutoProlongAvailable;
+        vm.Tariff = {};
+        vm.Tariff.tariffs = config.tariffs;
+        vm.Tariff.isCurrentTariff = isCurrentTariff;
+        vm.Tariff.currentTariff = null;
+        vm.Tariff.setCurrentTariff = setCurrentTariff;
+        vm.Tariff.isAutoProlongAvailable = isAutoProlongAvailable;
 
         // Секция итогов
-        vm.totalAmount = 0;
-        vm.discountSubscriptionPrice = config.discountSubscriptionPrice;
-        vm.addDiscountChanged = calculateCurrentAmount;
-        vm.isAddDiscount = false;
-        vm.calculateCurrentAmount = calculateCurrentAmount;
+        vm.Total = {};
+        vm.Total.totalAmount = 0;
+        vm.Total.discountSubscriptionPrice = config.discountSubscriptionPrice;
+        vm.Total.addDiscountChanged = calculateCurrentAmount;
+        vm.Total.calculateCurrentAmount = calculateCurrentAmount;
+        vm.Total.isAddDiscount = false;
 
         // Установка выбранного способа оплаты
         function setCurrentPaymentMethod(method) {
             if (!isMethodDisabled(method)) {
-                vm.currentPaymentMethod = method;
+                vm.PayMethod.currentPaymentMethod = method;
             }
-            vm.isAutoProlong = vm.isAutoProlong && isAutoProlongAvailable();
+            vm.Tariff.isAutoProlong = vm.Tariff.isAutoProlong && isAutoProlongAvailable();
         }
 
         // Сравнение переданного метода с текущим
         function isCurrentMethod(method) {
-            if (vm.currentPaymentMethod) {
-                return vm.currentPaymentMethod.id === method.id && !isMethodDisabled(method);
+            if (vm.PayMethod.currentPaymentMethod) {
+                return vm.PayMethod.currentPaymentMethod.id === method.id && !isMethodDisabled(method);
             }
             return false;
         }
 
         // Устанавливает изображение для способа оплаты (в зависимости от выбранного)
         function setCover(method) {
-            return (!vm.isCurrentMethod(method) && vm.currentPaymentMethod) ?  method.inactive_cover : method.active_cover;
+            return (!vm.PayMethod.isCurrentMethod(method) && vm.PayMethod.currentPaymentMethod) ?  method.inactive_cover : method.active_cover;
         }
         // Проверяет, является ли метод оплаты недоступным
         function isMethodDisabled(method) {
-            return method.id == 'giftcode' && vm.isGiftSubscription;
+            return method.id == 'giftcode' && vm.PayMethod.isGiftSubscription;
         }
         // Управление отображением флага "Покупка подписки в подарок"
         function giftSubscriptionShow() {
-            return vm.currentPaymentMethod ? vm.currentPaymentMethod.id != 'giftcode' : true;
+            return vm.PayMethod.currentPaymentMethod ? vm.PayMethod.currentPaymentMethod.id != 'giftcode' : true;
         }
 
         // Установка текущего тарифа
         function setCurrentTariff(tariff) {
-            vm.currentTariff = tariff;
+            vm.Tariff.currentTariff = tariff;
             calculateCurrentAmount();
         }
         // Проверка, является ли тариф текущим
         function isCurrentTariff(tariff) {
-            if (vm.currentTariff) {
-                return vm.currentTariff.id == tariff.id;
+            if (vm.Tariff.currentTariff) {
+                return vm.Tariff.currentTariff.id == tariff.id;
             }
             return false;
         }
         // Проверяет, есть ли возможность автопродления подписки
         function isAutoProlongAvailable() {
-            return vm.currentPaymentMethod && 
-                   vm.currentPaymentMethod.auto_prolong &&
-                   !vm.isGiftSubscription;
+            return vm.PayMethod.currentPaymentMethod && 
+                   vm.PayMethod.currentPaymentMethod.auto_prolong &&
+                   !vm.PayMethod.isGiftSubscription;
         }
         
         // Вычисление текущей суммы
         function calculateCurrentAmount() {
-            if (vm.currentTariff) {
-                vm.totalAmount = vm.currentTariff.amount + vm.isAddDiscount * vm.discountSubscriptionPrice;
+            if (vm.Tariff.currentTariff) {
+                vm.Total.totalAmount = vm.Tariff.currentTariff.amount + vm.Total.isAddDiscount * vm.Total.discountSubscriptionPrice;
             }
-            return vm.totalAmount;
+            return vm.Total.totalAmount;
         }
 
     }
