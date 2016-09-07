@@ -6,7 +6,7 @@
 
     function subscriptionsController() {
         var vm = this;
-
+        // Секция выбора метода
         vm.paymentsMethods = paymentsMethods;
         vm.currentPaymentMethod = null;
         vm.isCurrentMethod = isCurrentMethod;
@@ -14,8 +14,13 @@
         vm.setCover = setCover;
         vm.isMethodDisabled = isMethodDisabled;
 
-        vm.giftSubscriptionChanged = giftSubscriptionChanged;
         vm.giftSubscriptionShow = giftSubscriptionShow;
+
+        // Секция выбора срока оплаты
+        vm.tariffs = tariffs;
+        vm.isCurrentTariff = isCurrentTariff;
+        vm.currentTariff = null;
+        vm.setCurrentTariff = setCurrentTariff;
 
         // Установка выбранного способа оплаты
         function setCurrentPaymentMethod(method) {
@@ -40,18 +45,22 @@
         function isMethodDisabled(method) {
             return method.id == 'giftcode' && vm.isGiftSubscription;
         }
-        // Обработка установки/снятия флажка "Покупаю подписку в подарок"
-        function giftSubscriptionChanged() {
-            // if (vm.isGiftSubscription && vm.currentPaymentMethod && vm.currentPaymentMethod.id == 'giftcode') {
-            //     vm.currentPaymentMethod = null;
-            // }
-        }
+        // Управление отображением флага "Покупка подписки в подарок"
         function giftSubscriptionShow() {
-            // if (vm.currentPaymentMethod) {
-            //     return vm.currentPaymentMethod.id != 'giftcode';
-            // } 
             return vm.currentPaymentMethod ? vm.currentPaymentMethod.id != 'giftcode' : true;
         }
+
+
+        function setCurrentTariff(tariff) {
+            vm.currentTariff = tariff;
+        }
+        function isCurrentTariff(tariff) {
+            if (vm.currentTariff) {
+                return vm.currentTariff.id == tariff.id;
+            }
+            return false;
+        }
+        
     }
 
     var paymentsMethods = [
@@ -63,4 +72,10 @@
         { id: 'qiwi', name: 'QIWI', active_cover: 'assets/images/sprite.payment-qiwi.png', inactive_cover: 'assets/images/sprite.payment-qiwi-bw.png'  },
         { id: 'giftcode', name: 'Подарочный код', active_cover: '' },
     ];
+
+    var tariffs = [
+        { id: 'two_years', duration: '2 года', amount: 2880, month_pay: 120, card_cover: 'assets/images/discount_card.png' },
+        { id: 'one_year', duration: '1 год', amount: 1500, month_pay: 125, card_cover: 'assets/images/discount_card.png' },
+        { id: 'half_year', duration: '6 месяцев', amount: 780, month_pay: 130, card_cover: 'assets/images/discount_card.png' },
+    ]
 })();

@@ -4,57 +4,90 @@
     <h2 flex class="main-container__header">Оформление подписки</h2>
     <span flex class="main-container__greet">Спасибо, что решили стать участником клуба</span>
     <md-content class="main-container__content md-whiteframe-1dp">
+        <div class="main-container__content__top">
+            <img class="main-container__content__top__img" src="assets/images/crown.png" alt="">
+            <span class="main-container__content__top__text">Клуб выгодных покупок</span>
+        </div>
         <section class="payment-method">
-            <div class="payment-method__top">
-                <img class="payment-method__top__img" src="assets/images/crown.png" alt="">
-                <span class="payment-method__top__text">Клуб выгодных покупок</span>
-            </div>
-            <div class="payment-method__body">
-                <h3>Выберите способ оплаты</h3>
-                <md-grid-list class="payment-methods-container"
-                              md-cols-xs="2" md-cols-sm="4" md-cols-gt-md="8"
-                              md-row-height="1:1"
-                              md-gutter="20px">
-                  <md-grid-tile md-colspan="2"
-                                md-rowspan="1"
-                                ng-click="subscriptions.setCurrentPaymentMethod(method)"
-                                ng-repeat="method in subscriptions.paymentsMethods"
-                                ng-class="{ 
-                                            'payment-methods-container__method': true,
-                                            'payment-methods-container__method--inactive': !subscriptions.isCurrentMethod(method) && subscriptions.currentPaymentMethod,
-                                            'payment-methods-container__method--checked': subscriptions.isCurrentMethod(method) && subscriptions.currentPaymentMethod,
-                                            'payment-methods-container__method--disabled': subscriptions.isMethodDisabled(method)
-                                          }">
-                        <img  class="payment-methods-container__method__cover"
-                              ng-if="method.active_cover"
-                              ng-src="{{ subscriptions.setCover(method) }}"
-                              alt="{{ method.name }}">
-                        <div ng-if="!method.active_cover" class="payment-methods-container__method--nocover">
-                            <span class="payment-methods-container__method__name">{{ method.name }}</span><br/>
-                            <span class="payment-methods-container__method__desc">{{ method.desc }}</span>
-                        </div>
-                  </md-grid-tile>
-                </md-grid-list>
-                <div class="payment-method__body__options">
-                    <md-checkbox ng-show="subscriptions.giftSubscriptionShow()" name="gift" ng-model="subscriptions.isGiftSubscription"  ng-change="subscriptions.giftSubscriptionChanged()" aria-label="gift">Покупаю подписку в подарок</md-checkbox>
-                </div>
-            </div>
-             <div class="payment-method__bottom" layout>
-                <div class="payment-method__bottom__block" flex layout>
-                    <img class="payment-method__bottom__block__img" src="assets/images/sprite.nocomission-silver.png" alt="">
-                    <span class="payment-method__bottom__block__text">
-                        Нет комиссии при оплате банковскими картами Яндекс.Деньгами и Qiwi
-                    </span>
-                </div>
-                <div class="payment-method__bottom__block" flex layout>
-                    <img class="payment-method__bottom__block__img" src="assets/images/sprite.lock-silver.png" alt="">
-                    <span class="payment-method__bottom__block__text">
-                        Все платежи надежно защищены и соответствуют международным стандартам
-                    </span>
-                </div>
-                <div class="payment-method__bottom__block" flex></div>
+            <h3>Выберите способ оплаты</h3>
+            <md-grid-list class="payment-methods-container"
+                            md-cols-xs="2" md-cols-sm="4" md-cols-gt-md="8"
+                            md-row-height="1:1"
+                            md-gutter="20px">
+                <md-grid-tile md-colspan="2"
+                            md-rowspan="1"
+                            ng-click="subscriptions.setCurrentPaymentMethod(method)"
+                            ng-repeat="method in subscriptions.paymentsMethods"
+                            ng-class="{ 
+                                        'payment-methods-container__method': true,
+                                        'grid-choose-block': true,
+                                        'grid-choose-block--inactive': !subscriptions.isCurrentMethod(method) && subscriptions.currentPaymentMethod,
+                                        'grid-choose-block--checked': subscriptions.isCurrentMethod(method) && subscriptions.currentPaymentMethod,
+                                        'grid-choose-block--disabled': subscriptions.isMethodDisabled(method)
+                                        }">
+                    <img  class="payment-methods-container__method__cover"
+                            ng-if="method.active_cover"
+                            ng-src="{{ subscriptions.setCover(method) }}"
+                            alt="{{ method.name }}">
+                    <div ng-if="!method.active_cover" class="payment-methods-container__method--nocover">
+                        <span class="payment-methods-container__method__name">{{ method.name }}</span><br/>
+                        <span class="payment-methods-container__method__desc">{{ method.desc }}</span>
+                    </div>
+                </md-grid-tile>
+            </md-grid-list>
+            <div class="payment-method__body__options">
+                <md-checkbox ng-show="subscriptions.giftSubscriptionShow()" name="gift" ng-model="subscriptions.isGiftSubscription" aria-label="gift">Покупаю подписку в подарок</md-checkbox>
             </div>
         </section>
+        <md-divider></md-divider>
+        <section class="payment-date">
+            <h3>На какой срок</h3>
+            <md-grid-list class="payment-date-container"
+                            md-cols-xs="2" md-cols-sm="4" md-cols-gt-md="8"
+                            md-row-height="1:1"
+                            md-gutter="20px">
+                <md-grid-tile md-colspan="2"
+                            md-rowspan="1"
+                            ng-click="subscriptions.setCurrentTariff(tariff)"
+                            ng-repeat="tariff in subscriptions.tariffs"
+                            ng-class="{ 
+                                        'payment-date-container__tariff': true,
+                                        'grid-choose-block': true,
+                                        'grid-choose-block--inactive': !subscriptions.isCurrentTariff(tariff) && subscriptions.currentTariff,
+                                        'grid-choose-block--checked': subscriptions.isCurrentTariff(tariff) && subscriptions.currentTariff
+                                      }">
+                    <!--<img  class="payment-date-container__tariff__cover"
+                            ng-if="tariff.active_cover"
+                            ng-src="{{ subscriptions.setCover(tariff) }}"
+                            alt="{{ tariff.name }}">-->
+                    <div class="payment-date-container__tariff__content">
+                        <span class="payment-date-container__tariff__content__duration">{{ tariff.duration }}</span>
+                        <span class="payment-date-container__tariff__content__amount">{{ tariff.amount + " руб." }}</span>
+                        <div class="payment-date-container__tariff__content__month-price-container">
+                            <span class="payment-date-container__tariff__content__month-price-container__price">{{ tariff.month_pay }}</span>
+                            <span class="payment-date-container__tariff__content__month-price-container__currency">руб./месяц</span>
+                        </div>
+                        <img class= "payment-date-container__tariff__content__card" ng-src="{{ tariff.card_cover }}" alt="">
+                    </div>
+                    
+                </md-grid-tile>
+            </md-grid-list>
+        </section>
+        <div class="main-container__content__bottom" layout>
+            <div class="main-container__content__bottom__block" flex layout>
+                <img class="main-container__content__bottom__block__img" src="assets/images/sprite.nocomission-silver.png" alt="">
+                <span class="main-container__content__bottom__block__text">
+                    Нет комиссии при оплате банковскими картами Яндекс.Деньгами и Qiwi
+                </span>
+            </div>
+            <div class="main-container__content__bottom__block" flex layout>
+                <img class="main-container__content__bottom__block__img" src="assets/images/sprite.lock-silver.png" alt="">
+                <span class="main-container__content__bottom__block__text">
+                    Все платежи надежно защищены и соответствуют международным стандартам
+                </span>
+            </div>
+            <div class="main-container__content__bottom__block" flex></div>
+        </div>
     </md-content>
 </md-content>
 
