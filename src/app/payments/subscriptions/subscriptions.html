@@ -35,13 +35,14 @@
                     </div>
                 </md-grid-tile>
             </md-grid-list>
-            <div class="payment-method__body__options">
-                <md-checkbox ng-show="subscriptions.giftSubscriptionShow()" name="gift" ng-model="subscriptions.isGiftSubscription" aria-label="gift">Покупаю подписку в подарок</md-checkbox>
+            <div class="payment-method__options options-block">
+                <md-checkbox class="payment-method__options__gift-subscription option-checkbox" ng-show="subscriptions.giftSubscriptionShow()" name="gift" ng-model="subscriptions.isGiftSubscription" aria-label="gift">Покупаю подписку в подарок</md-checkbox>
             </div>
         </section>
         <md-divider></md-divider>
+        <!--<section class="payment-date" ng-show="subscriptions.currentPaymentMethod">-->
         <section class="payment-date">
-            <h3>На какой срок</h3>
+            <h3 flex class="payment-date__header">На какой срок</h3>
             <md-grid-list class="payment-date-container"
                             md-cols-xs="2" md-cols-sm="4" md-cols-gt-md="8"
                             md-row-height="1:1"
@@ -56,13 +57,9 @@
                                         'grid-choose-block--inactive': !subscriptions.isCurrentTariff(tariff) && subscriptions.currentTariff,
                                         'grid-choose-block--checked': subscriptions.isCurrentTariff(tariff) && subscriptions.currentTariff
                                       }">
-                    <!--<img  class="payment-date-container__tariff__cover"
-                            ng-if="tariff.active_cover"
-                            ng-src="{{ subscriptions.setCover(tariff) }}"
-                            alt="{{ tariff.name }}">-->
                     <div class="payment-date-container__tariff__content">
                         <span class="payment-date-container__tariff__content__duration">{{ tariff.duration }}</span>
-                        <span class="payment-date-container__tariff__content__amount">{{ tariff.amount + " руб." }}</span>
+                        <span class="payment-date-container__tariff__content__amount">{{ tariff.amount }} руб.</span>
                         <div class="payment-date-container__tariff__content__month-price-container">
                             <span class="payment-date-container__tariff__content__month-price-container__price">{{ tariff.month_pay }}</span>
                             <span class="payment-date-container__tariff__content__month-price-container__currency">руб./месяц</span>
@@ -72,6 +69,39 @@
                     
                 </md-grid-tile>
             </md-grid-list>
+            <div class="payment-date__info text-secondary">
+                В конце срока подписка продлится автоматически. Вы можете выключить<br>
+                автопродление в любой момент в настройках или отменить его.
+            </div>
+            <div class="payment-date__options options-block">
+                <md-checkbox class="payment-date__options__auto-prolong option-checkbox" name="autoProlong" ng-model="subscriptions.isAutoProlong" aria-label="autoProlong">
+                    Продлевать подписку автоматически
+                </md-checkbox>
+                <div class="payment-date__options__agreement option-checkbox-info text-secondary">
+                    Оплачивая подписку, я принимаю условия оплаты, указанные в оферте и условия автоматического<br>
+                    продления подписки на месяц вперед
+                </div>
+            </div>
+        </section>
+        <md-divider></md-divider>
+        <!--<section class="payment-date" ng-show="subscriptions.currentPaymentMethod && subscriptions.currentTariff">-->
+        <section class="total-block">
+            <h3 flex class="total-block__header">Итого к оплате (за 1 год)</h3>
+            <div class="total-block__amount">
+                <div class="total-block__amount__year year-amount-container">
+                    <span class="year-amount-container__price">{{ subscriptions.currentTariff.amount }}</span>
+                    <span class="year-amount-container__currency"> руб.</span>
+                </div>
+                <span class="total-block__amount__month text-secondary">Далее {{ subscriptions.currentTariff.month_pay }} рублей в месяц</span>
+            </div>
+            <div class="total-block__options options-block">
+                <md-checkbox class="total-block__options__add-discount option-checkbox" name="addDiscount" ng-model="subscriptions.isAddDiscount" aria-label="addDiscount">
+                    Добавить подписку на скидку 5% на весь ассортимент товаров
+                </md-checkbox>
+                <div class="total-block__options__info option-checkbox-info text-secondary">
+                    Срок действия подписки 6 месяцев. Стоимость подписки 150 руб.
+                </div>
+            </div>
         </section>
         <div class="main-container__content__bottom" layout>
             <div class="main-container__content__bottom__block" flex layout>

@@ -4,6 +4,12 @@ body {
     font-weight: 400;
 }
 
+.text-secondary {
+    /*color: #5c5c5c;*/
+    color: #444;
+    font-size: .9em;
+}
+
 .center-content {
     padding: 10px 10%;
 }
@@ -22,6 +28,7 @@ body {
 .footer__shop-label,
 .footer__support-link {
     margin: 10px 20px 0 0;
-    font-size: .9em;
+}
+.footer__support-link {
     color: #444;
 }

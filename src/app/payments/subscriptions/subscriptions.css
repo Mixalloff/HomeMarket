@@ -1,5 +1,17 @@
 section {
-    padding: 20px;
+    padding: 20px 50px;
+}
+
+.options-block {
+    margin-top: 20px;
+    min-height: 50px;
+}
+.option-checkbox {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.option-checkbox-info {
+    margin-left: 30px;
 }
 
 .grid-choose-block {
@@ -68,11 +80,6 @@ section {
     padding: 0 10px;
 }
 
-.payment-method__body__options {
-    margin-top: 20px;
-    min-height: 50px;
-}
-
 .payment-methods-container__method__name {
     font-weight: bold;
     font-size: 1.1em;
@@ -99,8 +106,7 @@ section {
     font-size: 1.2em;
 }
 .payment-date-container__tariff__content__amount {
-    /*color: #878787;*/
-    color: #666666;
+    color: #673626;
     font-weight: 600;
 }
 .payment-date-container__tariff__content__amount,
@@ -120,3 +126,15 @@ section {
     top: -10px;
     right: -10px;
 }
+
+.payment-date__info {
+    margin-top: 10px;
+}
+
+.year-amount-container {
+    font-weight: bold;
+}
+.year-amount-container__price {
+    font-size: 2em;
+}
+
