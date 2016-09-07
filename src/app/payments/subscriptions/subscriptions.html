@@ -1,15 +1,15 @@
 <link rel="stylesheet" href="app/payments/subscriptions/subscriptions.css">
 
-<md-content class="main-container center-content" layout="column">
+<md-content class="main-container center-content main-background" layout="column">
     <h2 flex class="main-container__header">Оформление подписки</h2>
     <span flex class="main-container__greet">Спасибо, что решили стать участником клуба</span>
     <md-content class="main-container__content md-whiteframe-1dp">
-        <div class="main-container__content__top">
+        <section class="main-container__content__top">
             <img class="main-container__content__top__img" src="assets/images/crown.png" alt="">
             <span class="main-container__content__top__text">Клуб выгодных покупок</span>
-        </div>
+        </section>
         <section class="payment-method">
-            <h3>Выберите способ оплаты</h3>
+            <h3 flex class="payment-methods__header section-header">Выберите способ оплаты</h3>
             <md-grid-list class="payment-methods-container"
                             md-cols-xs="2" md-cols-sm="4" md-cols-gt-md="8"
                             md-row-height="1:1"
@@ -26,9 +26,9 @@
                                         'grid-choose-block--disabled': subscriptions.isMethodDisabled(method)
                                         }">
                     <img  class="payment-methods-container__method__cover"
-                            ng-if="method.active_cover"
-                            ng-src="{{ subscriptions.setCover(method) }}"
-                            alt="{{ method.name }}">
+                          ng-if="method.active_cover"
+                          ng-src="{{ subscriptions.setCover(method) }}"
+                          alt="{{ method.name }}">
                     <div ng-if="!method.active_cover" class="payment-methods-container__method--nocover">
                         <span class="payment-methods-container__method__name">{{ method.name }}</span><br/>
                         <span class="payment-methods-container__method__desc">{{ method.desc }}</span>
@@ -40,8 +40,8 @@
             </div>
         </section>
         <md-divider></md-divider>
-        <section class="payment-date" ng-show="subscriptions.currentPaymentMethod">
-            <h3 flex class="payment-date__header">На какой срок</h3>
+        <section class="payment-date" ng-hide="!subscriptions.currentPaymentMethod">
+            <h3 flex class="payment-date__header section-header">На какой срок</h3>
             <md-grid-list class="payment-date-container"
                             md-cols-xs="2" md-cols-sm="4" md-cols-gt-md="8"
                             md-row-height="1:1"
@@ -84,7 +84,7 @@
         </section>
         <md-divider></md-divider>
         <section class="payment-date" ng-show="subscriptions.currentPaymentMethod && subscriptions.currentTariff">
-            <h3 flex class="total-block__header">Итого к оплате (за 1 год)</h3>
+            <h3 flex class="total-block__header section-header">Итого к оплате (за 1 год)</h3>
             <div class="total-block__amount">
                 <div class="total-block__amount__year year-amount-container">
                     <span class="year-amount-container__equation" ng-if="subscriptions.isAddDiscount">
@@ -109,17 +109,22 @@
                 </div>
             </div>
         </section>
-        <div class="main-container__content__bottom" layout="column">
+        <section class="main-container__content__bottom" layout="column">
             <button ng-disabled="!subscriptions.currentTariff"
+                    ng-show="subscriptions.currentPaymentMethod"
                     class="main-container__content__bottom__btn pay-button">Оплатить</button>
             <div class="main-container__content__bottom__info-block" layout>
-                <div class="main-container__content__bottom__block" flex layout>
+                <div class="main-container__content__bottom__block" 
+                    flex-xs="50" flex-xs="50" flex-gt-sm="30" 
+                    layout>
                     <img class="main-container__content__bottom__block__img" src="assets/images/sprite.nocomission-silver.png" alt="">
                     <span class="main-container__content__bottom__block__text">
                         Нет комиссии при оплате банковскими картами Яндекс.Деньгами и Qiwi
                     </span>
                 </div>
-                <div class="main-container__content__bottom__block" flex layout>
+                <div class="main-container__content__bottom__block"
+                     flex-xs="50" flex-xs="50" flex-gt-sm="30" 
+                     layout>
                     <img class="main-container__content__bottom__block__img" src="assets/images/sprite.lock-silver.png" alt="">
                     <span class="main-container__content__bottom__block__text">
                         Все платежи надежно защищены и соответствуют международным стандартам
@@ -128,7 +133,7 @@
                 <div class="main-container__content__bottom__block" flex></div>
             </div>
             
-        </div>
+        </section>
     </md-content>
 </md-content>
 

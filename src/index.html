@@ -20,15 +20,15 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 </head>
 
-  <body ng-app="app" ng-cloak>
-    <header class="header" layout>
+  <body ng-app="app" ng-cloak class="main-background">
+    <header class="header main-background" layout>
       <span class="header__line" flex></span>
       <img class="header__logo" src="assets/images/header_logo.png" alt="Домашний магазин">
       <span class="header__line" flex></span>
   </header>
   <ui-view layout="column"></ui-view>
   <md-divider></md-divider>
-  <footer class="footer center-content text-secondary" layout>
+  <footer class="footer center-content text-secondary main-background" layout>
       <span class="footer__shop-label">&copy 2010-2016 Домашний Магазин</span>
       <a class="footer__support-link" href="#">Служба поддержки</a>
   </footer>

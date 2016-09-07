@@ -9,10 +9,15 @@ section {
 .option-checkbox {
     margin-bottom: 10px;
     font-weight: bold;
+    font-size: 1.2em;
 }
 .option-checkbox-info {
     margin-left: 30px;
 }
+
+ .section-header {
+     font-size: 1.5em;
+ }
 
 .grid-choose-block {
     border-style: dotted;
@@ -25,9 +30,6 @@ section {
 }
 .grid-choose-block--checked {
     border-color: rgba(255, 255, 255, 0);
-}
-.grid-choose-block--inactive {
-    /*border-color: #ccc;*/
 }
 .grid-choose-block--disabled {
     border-color: #ccc;
@@ -42,12 +44,13 @@ section {
     text-align: center;
 }
 .main-container__header {
-    font-size: 2em;
+    font-size: 2.5em;
     margin: 0;
     letter-spacing: 2px;
 }
 .main-container__greet {
     color: #8b8b8b;
+    font-size: 1.1em;
 }
 .main-container__content {
     margin: 20px 0;
@@ -60,13 +63,13 @@ section {
 }
 .main-container__content__top,
 .main-container__content__bottom {
-    padding: 20px;
     text-align: center;
     background-color: rgba(110, 140, 190, 0.2);
 }
 .main-container__content__top__text {
     font-weight: bold;
     margin: 0 10px;
+    font-size: 1.4em;
 }
 .main-container__content__top__img {
     width: 50px;
@@ -74,12 +77,14 @@ section {
 
 .payment-methods-container__method__name {
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.5em;
 }
 .payment-methods-container__method__desc {
     color: #a2a2a2;
 }
-
+.payment-methods-container__method__cover {
+    max-width: 50%;
+}
 .payment-methods-container__method--nocover {
     text-align: center;
 }
@@ -124,7 +129,7 @@ section {
 
 .year-amount-container {
     font-weight: bold;
-    font-size: 2em;
+    font-size: 3em;
 }
 .year-amount-container__currency {
     font-size: .5em;
@@ -148,7 +153,9 @@ section {
 .pay-button {
     max-width: 150px;
     background: linear-gradient(to top, #c6a810, #f6c821, #fde841);
-    box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
+       -moz-box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
+            box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
     border-radius: 30px;
     padding: 10px;
     border: none;
@@ -157,7 +164,9 @@ section {
     font-weight: bold;
 }
 .pay-button:active {
-    box-shadow: inset 0px 5px 10px rgba(0,0,0,0.4);
+    -webkit-box-shadow: inset 0px 5px 10px rgba(0,0,0,0.4);
+       -moz-box-shadow: inset 0px 5px 10px rgba(0,0,0,0.4);
+            box-shadow: inset 0px 5px 10px rgba(0,0,0,0.4);
 }
 .pay-button:disabled {
     background: none;
